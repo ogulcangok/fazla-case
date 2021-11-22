@@ -1,4 +1,4 @@
-#Oğulcan Gök Fazla Gıda Case
+# Oğulcan Gök Fazla Gıda Case
 
 ### How to run
  simply run setup.sh on your Docker installed machine
@@ -6,13 +6,13 @@
 
 ### Admin Panel
 
-####All CRUD operations can be done on url/admin
+#### All CRUD operations can be done on url/admin
 
-###Endpoints
+### Endpoints
 
 #### /api/v1/{user,store,products}
 
-#####POST
+##### POST
 User
 ```json
 {
@@ -39,11 +39,11 @@ Store
 ```
 Creates a new item
 
-#####GET
+##### GET
 params: ?id=
 Returns the respective item
 
-#####PUT
+##### PUT
 body:JSON
 ```json
 {
@@ -54,7 +54,7 @@ body:JSON
 ```
 Updates the given id with the given parameters
 
-#####DELETE
+##### DELETE
 params: ?id=
 Deletes the respective item
 
@@ -62,7 +62,7 @@ Deletes the respective item
 
 #### /api/v1/shop/add-favourites
 
-#####POST
+##### POST
 body:JSON
 
 Adds a shop to users favourites list
