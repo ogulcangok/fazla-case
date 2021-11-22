@@ -42,7 +42,7 @@ def update_item(class_, payload):
 
     db.session.commit()
     item = class_.query.filter_by(id=id_).first()
-    return item.serialize()
+    return item.as_dict()
 
 
 def delete_item(class_, payload):
