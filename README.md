@@ -6,7 +6,7 @@
 
 ### Admin Panel
 
-#### All CRUD operations can be done on url/admin
+#### All CRUD operations can be done on /admin
 
 ### Endpoints
 
