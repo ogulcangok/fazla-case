@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify
 from app.service import crud
 from app.models import *
+
+
 api_bp = Blueprint("api",__name__,url_prefix="/api")
 
 
@@ -39,4 +41,12 @@ def add_to_favourites(source):
     }
     data = request.get_json()
     item = crud.add_favourite(class_=sources[source], payload=data)
+    return item
+
+
+@api_bp.route("/v1/<source>/search",methods = ["POST"])
+def search_items(source):
+
+    data = request.get_json()
+    item = crud.search_item(class_=source, payload=data)
     return item

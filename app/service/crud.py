@@ -21,7 +21,7 @@ def create_item(class_, payload):
         )
     db.session.add(item)
     db.session.commit()
-    return item.serialize()
+    return item.as_dict()
 
 
 def get_item(class_, payload):
@@ -33,7 +33,6 @@ def get_item(class_, payload):
     item_dict["favourite_shops"] = favourite_shops
     item_dict["favourite_products"] = favourite_products
     return item_dict
-
 
 
 def update_item(class_, payload):
@@ -67,3 +66,32 @@ def add_favourite(class_, payload):
     db.session.add(item)
     db.session.commit()
     return "True"
+
+
+def search_item(class_, payload):
+    sources = {
+        "shop": Shop,
+        "user": User,
+        "product": Product
+    }
+    search_logs(class_, payload)
+    items = sources[class_].query.filter(sources[class_].name.like("%" + payload["query"] + "%")).all()
+
+
+
+
+    return {
+        "data":[item.as_dict() for item in items]
+    }
+
+
+def search_logs(class_,payload):
+
+    log = SearchLogs.query.filter_by(user_query=payload["query"]).first()
+    if log:
+        log.count += 1
+    else:
+        log = SearchLogs(endpoint_name=class_,user_query=payload["query"])
+    db.session.add(log)
+    db.session.commit()
+    return log.as_dict()

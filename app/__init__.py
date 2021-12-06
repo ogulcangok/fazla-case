@@ -24,7 +24,7 @@ def create_app():
     admin.add_view(ModelView(User,db.session))
     admin.add_view(ModelView(Product, db.session))
     admin.add_view(ModelView(Shop, db.session))
-
+    admin.add_view(ModelView(SearchLogs, db.session))
     @login.user_loader
     def user_loader(user_id):
         return User.query.filter_by(id=user_id).first()

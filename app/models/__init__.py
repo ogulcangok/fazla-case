@@ -45,6 +45,7 @@ class User(db.Model):
 
 
 class Shop(db.Model):
+    __searchable__ = ["name"]
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -63,9 +64,28 @@ class Shop(db.Model):
 
 
 class Product(db.Model):
+    __searchable__ = ["name"]
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
     shop = db.Column(db.Integer, db.ForeignKey("shop.id"))
+    created_at = db.Column(db.Integer, nullable=False,
+                           default=int(datetime.datetime.timestamp(datetime.datetime.now())))
+    updated_at = db.Column(db.Integer, nullable=False,
+                           default=int(datetime.datetime.timestamp(datetime.datetime.now())))
+    status = db.Column(db.Boolean, default=True)
+
+    def __repr__(self):
+        return self.name
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+
+class SearchLogs(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    endpoint_name = db.Column(db.String)
+    user_query = db.Column(db.String)
+    count = db.Column(db.Integer,default=1)
     created_at = db.Column(db.Integer, nullable=False,
                            default=int(datetime.datetime.timestamp(datetime.datetime.now())))
     updated_at = db.Column(db.Integer, nullable=False,
